@@ -1,5 +1,5 @@
 export interface AuctionDetail {
-    id: string;
+    id: number;
     image: string;
     title: string;
     description: string;

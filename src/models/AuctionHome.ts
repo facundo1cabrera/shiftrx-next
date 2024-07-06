@@ -1,5 +1,5 @@
 export interface AuctionHome {
-    id: string,
+    id: number,
     title: string,
     description: string,
     currentPrice: number,
