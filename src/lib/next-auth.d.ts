@@ -11,6 +11,7 @@ declare module "next-auth" {
         backendTokens: {
             accessToken: string,
             refreshToken: string,
+            expiresIn: number
         }
     }
 }
