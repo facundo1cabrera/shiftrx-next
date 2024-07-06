@@ -88,7 +88,6 @@ export default function Home() {
   ]
   return (
     <>
-      <Navbar />
       <div className="w-full min-h-screen flex justify-center pt-4">
         <div className="w-full h-full flex flex-col justify-center sm:w-4/5"> 
           <h1 className="text-2xl font-semibold py-6">Current auctions</h1>
