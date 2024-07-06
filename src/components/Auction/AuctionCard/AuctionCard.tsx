@@ -1,12 +1,16 @@
 "use client"
-import { Auction } from "@/models/Auction";
-import Link from "next/link";
 import { MouseEvent } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+
+import { Auction } from "@/models/Auction";
 
 
 export const AuctionCard = ({ auction }: { auction: Auction }) => {
-    const handleClick = (event: MouseEvent<HTMLDivElement>) => {
+    const router = useRouter();
 
+    const handleClick = (event: MouseEvent<HTMLDivElement>) => {
+        router.push(`/auction/${auction.id}`)
     }
     return (
         <div
