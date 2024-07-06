@@ -1,6 +1,6 @@
 import { CiUser } from "react-icons/ci";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
 
@@ -9,9 +9,13 @@ export const Drawer = () => {
 
     const { data: session } = useSession();
 
-    const handleLogout = () => {
-        router.push('/login');
+    const handleLogout = async () => {
+        await signOut({
+            redirect: true,
+            callbackUrl: '/login'
+        });
     }
+
     return (
         <div className="drawer drawer-end">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -30,7 +34,7 @@ export const Drawer = () => {
                         session && session.user
                             ? (
                                 <li>
-                                    <Link href={'/api/auth/signout'}>Logout</Link>
+                                    <button onClick={handleLogout}>Log out</button>
                                 </li>
                             )
                             : (

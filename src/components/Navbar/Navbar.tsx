@@ -1,6 +1,5 @@
 "use client"
 
-import { useSession } from "next-auth/react";
 import Link from "next/link"
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 import { FaSearch } from "react-icons/fa";
@@ -8,8 +7,6 @@ import { Drawer } from "./Drawer";
 
 export const Navbar = () => {
     const [search, setSearch] = useState("");
-    const { data: session } = useSession();
-
 
     const handleKeyDown = async (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key !== 'Enter') return;

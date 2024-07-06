@@ -22,16 +22,15 @@ export const authOptions: NextAuthOptions = {
                 const res = await fetch(Backend_URL + "/auth/login", {
                     method: "POST",
                     body: JSON.stringify({
-                        username,
+                        email: username,
                         password,
                     }),
                     headers: {
                         "Content-Type": "application/json",
                     },
                 });
-                if (res.status == 401) {
-                    console.log(res.statusText);
 
+                if (res.status !== 201) {
                     return null;
                 }
                 const user = await res.json();
@@ -39,6 +38,24 @@ export const authOptions: NextAuthOptions = {
             },
         }),
     ],
+
+    callbacks: {
+        async jwt({ token, user }) {
+
+            if (user) return { ...token, ...user };
+
+            return token;
+        },
+        async session({ token, session }) {
+            session.user = token.user
+            session.backendTokens = token.backendTokens;
+            return session;
+        }
+    },
+
+    pages: {
+        signIn: '/login'
+    }
 };
 
 const handler = NextAuth(authOptions);
