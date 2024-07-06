@@ -1,4 +1,4 @@
-export interface Auction {
+export interface AuctionHome {
     id: string,
     title: string,
     description: string,

@@ -3,10 +3,10 @@ import { MouseEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-import { Auction } from "@/models/Auction";
+import { AuctionHome } from "@/models/AuctionHome";
 
 
-export const AuctionCard = ({ auction }: { auction: Auction }) => {
+export const AuctionCard = ({ auction }: { auction: AuctionHome }) => {
     const router = useRouter();
 
     const handleClick = (event: MouseEvent<HTMLDivElement>) => {
