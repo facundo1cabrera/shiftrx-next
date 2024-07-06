@@ -1,13 +1,15 @@
 "use client"
 
+import { useSession } from "next-auth/react";
 import Link from "next/link"
-import { useRouter } from "next/navigation";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
-import { CiUser } from "react-icons/ci";
 import { FaSearch } from "react-icons/fa";
+import { Drawer } from "./Drawer";
 
 export const Navbar = () => {
     const [search, setSearch] = useState("");
+    const { data: session } = useSession();
+
 
     const handleKeyDown = async (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key !== 'Enter') return;
@@ -19,11 +21,8 @@ export const Navbar = () => {
         setSearch(event.currentTarget.value)
     }
 
-    const router = useRouter();
 
-    const handleLogout = () => {
-        router.push('/login');
-    }
+
 
     return (
         <header className="flex items-center justify-between h-16 px-4 border-b shrink-0 md:px-6">
@@ -49,25 +48,7 @@ export const Navbar = () => {
                         />
                     </div>
                 </div>
-                <div className="drawer drawer-end">
-                    <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-                    <div className="drawer-content h-full">
-                        <label htmlFor="my-drawer-4" className="drawer-button cursor-pointer hover:text-gray-800">
-                            <div className="w-10 h-10 flex items-center justify-center">
-                                <CiUser className="w-full h-full" />
-
-                            </div>
-                        </label>
-                    </div>
-                    <div className="drawer-side">
-                        <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
-                        <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-                            <li>
-                                <button onClick={handleLogout}>Logout</button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <Drawer />
             </div>
         </header>
     )
