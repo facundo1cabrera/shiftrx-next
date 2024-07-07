@@ -3,7 +3,8 @@ import { MouseEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-import { AuctionHome } from "@/models/AuctionHome";
+import { AuctionHome } from "@/models/Auction";
+import dayjs from "dayjs";
 
 
 export const AuctionCard = ({ auction }: { auction: AuctionHome }) => {
@@ -36,7 +37,7 @@ export const AuctionCard = ({ auction }: { auction: AuctionHome }) => {
                 <p className="text-sm text-muted-foreground">{auction.description}</p>
                 <div className="flex items-center justify-between mt-4">
                     <div className="text-lg font-semibold">${auction.currentPrice.toFixed(2)}</div>
-                    <div className="text-sm text-muted-foreground text-red-800">{auction.timeRemaining}</div>
+                    <div className="text-sm text-muted-foreground text-red-800">Ends at {dayjs(auction.endTime).format("HH:mm")}</div>
                 </div>
             </div>
         </div>

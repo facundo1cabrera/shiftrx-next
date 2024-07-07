@@ -7,9 +7,9 @@ export const LastBidders = ({ bids }: { bids: Bid[] }) => {
         <>
             {
                 bids.map(x => (
-                    <div className="w-full flex justify-between items-center">
+                    <div key={x.id} className="w-full flex justify-between items-center">
                         <p className="text-lg font-semibold ">${x.price.toFixed(2)}</p>
-                        <p>{x.bidder} - {dayjs(x.time).format('HH:mm')}hs</p>
+                        <p>{x.bidderName} - {dayjs(x.time).format('HH:mm')}hs</p>
                     </div>
                 ))
             }
