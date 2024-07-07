@@ -1,3 +1,5 @@
+import { Bid } from "./Bid";
+
 export interface AuctionDetail {
     id: number;
     image: string;
@@ -6,4 +8,5 @@ export interface AuctionDetail {
     currentPrice: number;
     timeRemaining: string;
     shortDescription: string;
+    bids: Bid[];
 };
