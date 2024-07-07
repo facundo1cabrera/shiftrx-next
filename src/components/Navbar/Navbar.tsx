@@ -30,6 +30,9 @@ export const Navbar = () => {
                 <Link href="/dashboard" className="text-gray-500 dark:text-gray-400" prefetch={true}>
                     Dashboard
                 </Link>
+                <Link href="/create-auction" className="text-gray-500 dark:text-gray-400" prefetch={true}>
+                    Create an auction
+                </Link>
             </nav>
             <div className="flex items-center">
                 <div className="flex-1 ml-auto sm:flex-initial pr-4">

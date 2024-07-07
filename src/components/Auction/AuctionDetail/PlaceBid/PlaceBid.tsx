@@ -5,12 +5,12 @@ import { LastBidders } from "../LastBidders/LastBidders"
 import { signIn, useSession } from "next-auth/react"
 import { BidService } from "@/services/BidService"
 
-export const PlaceBid = ({ bidsParam, auctionId }: { bidsParam: Bid[], auctionId: number }) => {
+export const PlaceBid = ({ bidsParam, auctionId, startingPrice }: { bidsParam: Bid[], auctionId: number, startingPrice: number }) => {
 
     const { data: session } = useSession();
 
     const [bids, setBids] = useState<Bid[]>(bidsParam);
-    const currentPrice = bids[bids.length - 1].price;
+    const currentPrice = bids.length > 0 ? bids[bids.length - 1].price : startingPrice;
 
     const handlePlaceBid = async () => {
 
