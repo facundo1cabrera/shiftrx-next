@@ -3,7 +3,7 @@ import { AuctionService } from "@/services/AuctionService";
 import { BidService } from "@/services/BidService";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "../../lib/auth";
 import dayjs from "dayjs";
 import "dayjs/plugin/relativeTime"
 import { LastBidsMade } from "@/components/Dashboard/LastBidsMade/LastBidsMade";

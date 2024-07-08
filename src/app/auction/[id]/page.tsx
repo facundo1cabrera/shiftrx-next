@@ -7,7 +7,7 @@ import { AuctionService } from "@/services/AuctionService";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 
-export default function AuctionDetail({ params }: { params: { id: string } }) {
+export default function PageAuctionDetail({ params }: { params: { id: string } }) {
 
     const auctionService = new AuctionService();
     const [auction, setAuction] = useState<AuctionDetail | null>(null);
