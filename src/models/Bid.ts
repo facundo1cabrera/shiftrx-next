@@ -7,6 +7,10 @@ export interface Bid {
     userId: number
 }
 
+export interface BidWithAuctionTitle extends Bid {
+    title: string;
+}
+
 export interface CreateBid {
     auctionId: number,
     price: number,

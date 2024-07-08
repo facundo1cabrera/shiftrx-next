@@ -1,4 +1,5 @@
 import { Backend_URL } from "@/lib/Constants";
+import { Bid, BidWithAuctionTitle } from "@/models/Bid";
 import axios from "axios";
 
 
@@ -9,22 +10,41 @@ export class BidService {
         price: number,
         accessToken: string
     }) {
-        const result = await axios.post(`${Backend_URL}/bid`, {
-            price,
-            userId,
-            auctionId
-        }, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        });
+        try {
+            const result = await axios.post(`${Backend_URL}/bid`, {
+                price,
+                userId,
+                auctionId
+            }, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
 
-        return result.data;
+            return result.data;
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async getBids(auctionId: number) {
-        const result = await axios.get(`${Backend_URL}/bid/byAuction/${auctionId}`);
+        try {
+            const result = await axios.get(`${Backend_URL}/bid/byAuction/${auctionId}`);
 
-        return result.data;
+            return result.data;
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    async getBidsByUserId(userId: number) {
+        try {
+            const result = await axios.get<BidWithAuctionTitle[]>(`${Backend_URL}/bid/byUser/${userId}`);
+
+            return result.data
+        } catch (e) {
+            console.log(e);
+            return []
+        }
     }
 }

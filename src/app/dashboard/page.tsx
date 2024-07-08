@@ -6,6 +6,7 @@ import Link from "next/link";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import dayjs from "dayjs";
 import "dayjs/plugin/relativeTime"
+import { LastBidsMade } from "@/components/Dashboard/LastBidsMade/LastBidsMade";
 
 dayjs.extend(require("dayjs/plugin/relativeTime"));
 
@@ -23,6 +24,8 @@ export default async function Dashboard() {
     const auctions = await auctionService.getAuctionsByUser(session.user.id, session?.backendTokens.accessToken);
     const activeAuctions = auctions.filter(x => dayjs(x.endTime).isAfter(dayjs()));
 
+    const bids = await bidService.getBidsByUserId(session.user.id);
+
     return (
         <>
             <Navbar />
@@ -30,7 +33,7 @@ export default async function Dashboard() {
                 <main className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
                     <div className="bg-background rounded-lg shadow-md">
                         <div className="px-6 py-4 border-b">
-                            <h2 className="text-xl font-bold">Active Auctions</h2>
+                            <h2 className="text-xl font-bold">My Active Auctions</h2>
                         </div>
                         <div className="p-4 space-y-4">
                             {activeAuctions.map((auction) => (
@@ -60,6 +63,7 @@ export default async function Dashboard() {
                             ))}
                         </div>
                     </div>
+                    <LastBidsMade bids={bids} />
                 </main>
             </div>
         </>
