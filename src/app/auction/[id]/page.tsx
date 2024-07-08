@@ -16,7 +16,7 @@ export default async function AuctionDetail({ params }: { params: { id: string }
                     <div className="w-full h-4/5 flex flex-col sm:flex-row justify-center md:w-4/5 xl:w-3/5 bg-card rounded-lg shadow-lg">
                         <div className="w-full md:w-1/2 p-4 pt-10 flex flex-col">
                             <h1 className="text-5xl font-bold">{auction.title}</h1>
-                            <p className="text-xl my-4 text-justify">{auction.description}</p>
+                            <p className="text-xl my-4 break-words">{auction.description}</p>
                             <p className="text-xl mb-2 font-medium">Last 5 bids:</p>
                             <PlaceBid bidsParam={auction.bids} auctionId={auction.id} startingPrice={auction.currentPrice}/>
                         </div>
