@@ -1,16 +1,16 @@
 "use client"
 import { useState } from "react"
 import { Bid } from "@/models/Bid"
-import { LastBidders } from "../LastBidders/LastBidders"
 import { signIn, useSession } from "next-auth/react"
 import { BidService } from "@/services/BidService"
+import { AuctionDetail } from "@/models/Auction"
+import { LastBidders } from "../LastBidders/LastBidders"
 
-export const PlaceBid = ({ bidsParam, auctionId, startingPrice }: { bidsParam: Bid[], auctionId: number, startingPrice: number }) => {
-
+export const PlaceBid = ({ bidsParam, auction, disabled = false }: { bidsParam: Bid[], auction: AuctionDetail, disabled: boolean }) => {
     const { data: session } = useSession();
 
     const [bids, setBids] = useState<Bid[]>(bidsParam);
-    const currentPrice = bids.length > 0 ? bids[bids.length - 1].price : startingPrice;
+    const currentPrice = bids.length > 0 ? bids[bids.length - 1].price : auction.currentPrice;
 
     const handlePlaceBid = async () => {
 
@@ -19,13 +19,13 @@ export const PlaceBid = ({ bidsParam, auctionId, startingPrice }: { bidsParam: B
         if (!session || !session.user) return;
 
         const newBid = await bidService.placeBid({
-            auctionId, 
-            userId: session?.user.id, 
+            auctionId: auction.id,
+            userId: session?.user.id,
             price: Math.round(currentPrice + currentPrice * 1 / 5),
             accessToken: session.backendTokens.accessToken
         });
 
-        setBids([...bids, {...newBid}])
+        setBids([...bids, { ...newBid }])
     }
 
     return (
@@ -36,8 +36,9 @@ export const PlaceBid = ({ bidsParam, auctionId, startingPrice }: { bidsParam: B
             {
                 session && session.user
                     ? <button
+                        disabled={disabled}
                         onClick={handlePlaceBid}
-                        className="w-full mb-6 bg-black text-white rounded-md text-2xl py-3" >
+                        className={`${disabled && 'opacity-40'} w-full mb-6 bg-black text-white rounded-md text-2xl py-3`} >
                         Place bid for ${Math.round(currentPrice + currentPrice * 1 / 5).toFixed(2)}
                     </button>
                     : <button

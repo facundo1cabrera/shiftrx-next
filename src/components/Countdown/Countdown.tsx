@@ -29,15 +29,21 @@ export const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
         return timeLeft;
     };
 
+    const [isClient, setIsClient] = useState(false);
     const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
 
     useEffect(() => {
+        setIsClient(true);
         const timer = setInterval(() => {
             setTimeLeft(calculateTimeLeft());
         }, 1000);
 
         return () => clearInterval(timer);
     }, [targetDate]);
+
+    if (!isClient) {
+        return null;    
+    }
 
     return (
         <div>
