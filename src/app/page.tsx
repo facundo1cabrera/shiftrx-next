@@ -1,11 +1,21 @@
+"use client";
 import { AuctionCard } from "@/components/Auction/AuctionCard/AuctionCard";
 import { Navbar } from "@/components/Navbar/Navbar";
+import { AuctionHome } from "@/models/Auction";
 import { AuctionService } from "@/services/AuctionService";
+import { useEffect, useState } from "react";
 
-export default async function Home() {
+export default function Home() {
 
   const auctionService = new AuctionService();
-  const auctions = await auctionService.getAllAuctions();
+  const [auctions, setAuctions] = useState<AuctionHome[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await auctionService.getAllAuctions();
+      setAuctions(result); 
+    }
+    fetchData();
+  }, []);
 
   return (
     <>

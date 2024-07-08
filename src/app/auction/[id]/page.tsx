@@ -1,15 +1,30 @@
+"use client";
 import { PlaceBid } from "@/components/Auction/AuctionDetail/PlaceBid/PlaceBid";
 import { Countdown } from "@/components/Countdown/Countdown";
 import { Navbar } from "@/components/Navbar/Navbar";
+import { AuctionDetail } from "@/models/Auction";
 import { AuctionService } from "@/services/AuctionService";
 import dayjs from "dayjs";
+import { useEffect, useState } from "react";
 
-export const dynamic = 'force-dynamic'
-
-export default async function AuctionDetail({ params }: { params: { id: string } }) {
+export default function AuctionDetail({ params }: { params: { id: string } }) {
 
     const auctionService = new AuctionService();
-    const auction = await auctionService.getAuctionDetail(parseInt(params.id));
+    const [auction, setAuction] = useState<AuctionDetail | null>(null);
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await auctionService.getAuctionDetail(parseInt(params.id))
+            setAuction(result);
+        }
+        fetchData();
+    }, []);
+
+
+    if (!auction) return (
+        <Navbar />
+    )
 
     return (
         <>
@@ -30,7 +45,7 @@ export default async function AuctionDetail({ params }: { params: { id: string }
                             <p className="text-xl my-4 break-words">{auction.description}</p>
                             <p className="text-xl mb-2 font-medium">Last 5 bids:</p>
 
-                            <PlaceBid bidsParam={auction.bids} auction={auction} disabled={dayjs().isAfter(dayjs(auction.endTime)) } />
+                            <PlaceBid bidsParam={auction.bids} auction={auction} disabled={dayjs().isAfter(dayjs(auction.endTime))} />
                         </div>
                         <div
                             className="inline-block h-full w-0.5 self-stretch bg-neutral-100 dark:bg-white/10"></div>
