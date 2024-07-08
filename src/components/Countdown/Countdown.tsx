@@ -46,7 +46,7 @@ export const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
     }
 
     return (
-        <div>
+        <div className="w-full h-20">
             {Object.keys(timeLeft).map((interval) => (
                 <span key={interval} className="text-red-800">
                     {timeLeft[interval as keyof TimeLeft]} {interval}{" "}
