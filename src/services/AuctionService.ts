@@ -15,6 +15,16 @@ export class AuctionService {
         return result.data;
     }
 
+    async getAuctionsByUser(userId: number, token: string): Promise<GetAllAuctionsResponse[]> {
+        const result = await axios.get<GetAllAuctionsResponse[]>(`${Backend_URL}/auction/byUser/${userId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        return result.data;
+    }
+
     async updateAuction({
         auctionId,
         image,
