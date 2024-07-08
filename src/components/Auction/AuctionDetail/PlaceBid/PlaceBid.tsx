@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import { Bid } from "@/models/Bid"
 import { signIn, useSession } from "next-auth/react"
-import { BidService } from "@/services/BidService"
+import { BidService } from "../../../../services/BidService"
 import { AuctionDetail } from "@/models/Auction"
 import { LastBidders } from "../LastBidders/LastBidders"
 import { Socket, io } from "socket.io-client"
