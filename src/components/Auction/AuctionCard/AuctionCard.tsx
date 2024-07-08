@@ -10,13 +10,12 @@ import dayjs from "dayjs";
 export const AuctionCard = ({ auction }: { auction: AuctionHome }) => {
     const router = useRouter();
 
-    const handleClick = (event: MouseEvent<HTMLDivElement>) => {
+    const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
         router.push(`/auction/${auction.id}`)
     }
     return (
         <div
-            className="overflow-hidden rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-in-out cursor-pointer"
-            onClick={(e) => handleClick(e)}
+            className="flex flex-col justify-between rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-in-out"
         >
             <Link href="#" className="" prefetch={false}>
                 <span className="sr-only">View Auction</span>
@@ -34,11 +33,23 @@ export const AuctionCard = ({ auction }: { auction: AuctionHome }) => {
 
             <div className="p-4 bg-background">
                 <h3 className="text-xl font-bold">{auction.title}</h3>
-                <p className="text-sm text-muted-foreground">{auction.description}</p>
-                <div className="flex items-center justify-between mt-4">
-                    <div className="text-lg font-semibold">${auction.currentPrice.toFixed(2)}</div>
-                    <div className="text-sm text-muted-foreground text-red-800">Ends at {dayjs(auction.endTime).format("HH:mm")}</div>
-                </div>
+                <p className="text-sm break-words">{auction.description}</p>
+            </div>
+            <div className="flex items-center justify-between mt-4 px-4 pt-4">
+                <div className="text-lg font-semibold">${auction.currentPrice.toFixed(2)}</div>
+                {
+                    dayjs().isBefore(dayjs(auction.endTime))
+                        ? <div className="text-sm">Ends at {dayjs(auction.endTime).format("HH:mm")}</div>
+                        : <div className="text-sm text-red-800">Ended at {dayjs(auction.endTime).format("DD/MM HH:mm")}</div>
+                }
+            </div>
+
+            <div className="w-full p-4">
+                <button
+                    onClick={(e) => handleClick(e)}
+                    className="w-full bg-black text-white py-2 hover:opacity-85">
+                    View Auction
+                </button>
             </div>
         </div>
     );
