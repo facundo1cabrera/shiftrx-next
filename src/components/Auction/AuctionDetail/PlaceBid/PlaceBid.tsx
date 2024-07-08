@@ -1,16 +1,26 @@
 "use client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Bid } from "@/models/Bid"
 import { signIn, useSession } from "next-auth/react"
 import { BidService } from "@/services/BidService"
 import { AuctionDetail } from "@/models/Auction"
 import { LastBidders } from "../LastBidders/LastBidders"
+import { Socket, io } from "socket.io-client"
+import { Backend_URL } from "@/lib/Constants"
 
 export const PlaceBid = ({ bidsParam, auction, disabled = false }: { bidsParam: Bid[], auction: AuctionDetail, disabled: boolean }) => {
     const { data: session } = useSession();
 
     const [bids, setBids] = useState<Bid[]>(bidsParam);
     const currentPrice = bids.length > 0 ? bids[bids.length - 1].price : auction.currentPrice;
+
+    const [socket, setSocket] = useState<Socket>();
+
+    const placeSocketBid = (bid: Bid) => {
+        if (socket) {
+            socket.emit("on-bid-placed", bid);
+        }
+    }
 
     const handlePlaceBid = async () => {
 
@@ -25,8 +35,26 @@ export const PlaceBid = ({ bidsParam, auction, disabled = false }: { bidsParam: 
             accessToken: session.backendTokens.accessToken
         });
 
-        setBids([...bids, { ...newBid }])
+        placeSocketBid(newBid);
     }
+
+    const updateBid = (e: Bid) => {
+        console.log("receiving socket", e)
+        setBids([...bids, { ...e }]);
+    }
+
+    useEffect(() => {
+        const newSocket = io(`${Backend_URL}`);
+        setSocket(newSocket);
+    }, []);
+
+    useEffect(() => {
+        socket?.on("on-bid-placed", updateBid);
+
+        return () => {
+            socket?.off("on-bid-placed", updateBid);
+        }
+    }, [setBids, socket])
 
     return (
         <>

@@ -9,7 +9,7 @@ export class BidService {
         userId: number,
         price: number,
         accessToken: string
-    }) {
+    }): Promise<Bid> {
         try {
             const result = await axios.post(`${Backend_URL}/bid`, {
                 price,
@@ -24,6 +24,7 @@ export class BidService {
             return result.data;
         } catch (e) {
             console.log(e);
+            throw new Error();
         }
     }
 
