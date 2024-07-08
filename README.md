@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# The Auction Platform Frontend
+This is the frontend for the auction application, developed using React with TypeScript and NesxJS. The application allows users to create and manage auctions, place bids, and view auctions' bids in real-time.
 
-## Getting Started
+## Instalation
 
-First, run the development server:
+This project is currently live [here](https://shiftrx-next.vercel.app/)!
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+But, you can try it locally by following this steps:
+
+1) Clone the repository
+```
+git clone https://github.com/facundo1cabrera/shiftrx-next.git shiftrx-next
+cd shiftrx-next
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2) Install the dependencies by running the command:
+```
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3) Rename the .env.example, it should look similar to this:
+```
+NEXTAUTH_SECRET=yoursecretkey
+NEXT_PUBLIC_BACKEND_URL=https://monkfish-app-xs5n3.ondigitalocean.app
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+4) Run the project with npm run dev
+```
+npm run dev
+```
 
-## Learn More
+## Tests
 
-To learn more about Next.js, take a look at the following resources:
+Currently, the project has only a few tests as an example on how to implement them in the project.
+But you can run them with:
+```
+npm run test
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Pages
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+The project contains 7 pages, some restricted to logged users, other open to the public, some are RSC and the others are client components.
 
-## Deploy on Vercel
+You can find them in the following urls:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+• /: Home page listing active auctions.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+• /auction/:id: Page showing details of a specific auction and form to place bids.
+
+• /create-auction: Page to create a new auction.
+
+• /edit-auction/:id: Page to edit an existing auction.
+
+• /login: Login page for users.
+
+• /register: Registration page for new users.
+
+• /dashboard: Dashboard for viewing the user's auctions and bids.
+
+## Use cases
+
+### Create an auction and place bids in real time between to users: 
+https://www.loom.com/share/e765283f7bfd401c87c3e5f4b56c005d?sid=7ac80adc-de8f-4f2c-9a7e-ac26896c4e0c
+
+### Create a user and login
+https://www.loom.com/share/d07e8ea525544c15a7a4ef0754270b9e?sid=aef90dc9-ef05-4b6e-8a88-fdf4ef0e4715
+
+### Try to access the dashboard unlogged, view the dashboard and edit an auction
+https://www.loom.com/share/af616bc2f3434bdcad66e0439801998d?sid=c79cf120-f15e-440b-a57d-d743278a5bfd
