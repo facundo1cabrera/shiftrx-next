@@ -22,8 +22,8 @@ export const Navbar = () => {
 
 
     return (
-        <header className="flex items-center justify-between h-16 px-4 border-b shrink-0 md:px-6">
-            <nav className="flex-col hidden gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
+        <header className="flex flex-col sm:flex-row items-center justify-between sm:h-16 px-2 sm:px-4 border-b md:px-6">
+            <nav className="flex flex-col py-4 sm:py-0 sm:flex-row items-center gap-6">
                 <Link href="/" className="font-bold" prefetch={true}>
                     Auctions
                 </Link>
@@ -40,7 +40,7 @@ export const Navbar = () => {
                         <FaSearch className={`${search.length > 0 ? 'hidden' : ''} absolute
                             top-1/2 left-4 transform -translate-y-1/2 h-6 w-6 text-gray-500 dark:text-gray-400`} />
                         <input
-                            placeholder="Search interviews..."
+                            placeholder="Search auction..."
                             className={` ${search.length > 0 ? 'pl-4' : 'pl-14'} border py-3 sm:w-[300px] md:w-[200px] lg:w-[300px]`}
                             onKeyDown={handleKeyDown}
                             onChange={handleSearch}
