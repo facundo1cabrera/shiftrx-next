@@ -4,25 +4,41 @@ import axios from "axios";
 
 export class AuctionService {
     async getAllAuctions(): Promise<AuctionHome[]> {
-        const result = await axios.get<GetAllAuctionsResponse[]>(`${Backend_URL}/auction`)
+        try {
+            const result = await axios.get<GetAllAuctionsResponse[]>(`${Backend_URL}/auction`)
 
-        return result.data;
+            return result.data;
+        } catch (e) {
+            console.log(e);
+            throw new Error();
+        }
     }
 
     async getAuctionDetail(id: number): Promise<AuctionDetail> {
-        const result = await axios.get<GetAuctionDetailResponse>(`${Backend_URL}/auction/${id}`)
+        try {
+            const result = await axios.get<GetAuctionDetailResponse>(`${Backend_URL}/auction/${id}`)
 
-        return result.data;
+            return result.data;
+        } catch (e) {
+            console.log(e);
+            throw new Error();
+        }
     }
 
     async getAuctionsByUser(userId: number, token: string): Promise<GetAllAuctionsResponse[]> {
-        const result = await axios.get<GetAllAuctionsResponse[]>(`${Backend_URL}/auction/byUser/${userId}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
+        try {
 
-        return result.data;
+            const result = await axios.get<GetAllAuctionsResponse[]>(`${Backend_URL}/auction/byUser/${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            return result.data;
+        } catch (e) {
+            console.log(e);
+            throw new Error();
+        }
     }
 
     async updateAuction({
