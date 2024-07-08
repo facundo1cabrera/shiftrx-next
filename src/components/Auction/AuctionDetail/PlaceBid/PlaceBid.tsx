@@ -39,8 +39,11 @@ export const PlaceBid = ({ bidsParam, auction, disabled = false }: { bidsParam: 
     }
 
     const updateBid = (e: Bid) => {
-        console.log("receiving socket", e)
-        setBids([...bids, { ...e }]);
+        console.log("receiving socket", e);
+        setBids(prevBids => {
+            const newBids = [...prevBids, e].sort((a, b) => a.price - b.price);
+            return newBids;
+        });
     }
 
     useEffect(() => {
@@ -50,7 +53,7 @@ export const PlaceBid = ({ bidsParam, auction, disabled = false }: { bidsParam: 
         return () => {
             newSocket.disconnect()
         }
-    }, []);
+    }, [setSocket]);
 
     useEffect(() => {
         socket?.on("on-bid-placed", updateBid);
