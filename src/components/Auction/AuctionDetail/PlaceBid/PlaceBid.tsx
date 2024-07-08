@@ -46,6 +46,10 @@ export const PlaceBid = ({ bidsParam, auction, disabled = false }: { bidsParam: 
     useEffect(() => {
         const newSocket = io(`${Backend_URL}`);
         setSocket(newSocket);
+
+        return () => {
+            newSocket.disconnect()
+        }
     }, []);
 
     useEffect(() => {
