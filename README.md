@@ -57,6 +57,10 @@ You can find them in the following urls:
 
 • /dashboard: Dashboard for viewing the user's auctions and bids.
 
+## Product decisions
+Here are a couple of decisions that I made from a product perspective:
+- Do not allow auction owners to edit the price, remove bids, or modify the end time of their auctions. This decision was made to improve the user experience for bidders.
+
 ## Use cases
 
 ### Create an auction and place bids in real time between to users: 
